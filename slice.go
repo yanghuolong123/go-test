@@ -9,4 +9,15 @@ func main() {
 	fmt.Println(s[2])
 	fmt.Println(s[2:])
 	fmt.Println(s[:2])
+	fmt.Println("=======================")
+
+	var r = []rune{}
+	r = append(r, 48, 49, 50, 65)
+	fmt.Println(r)
+	for _, s := range r {
+		fmt.Println(string(s))
+	}
+
+	str := "aaaaaabbbb"
+	fmt.Println([]byte(str))
 }
