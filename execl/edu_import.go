@@ -25,7 +25,7 @@ func main() {
 		panic(err)
 	}
 
-	execlFileName := "./1.xlsx"
+	execlFileName := "./edu.xlsx"
 	xlFile, err := xlsx.OpenFile(execlFileName)
 	if err != nil {
 		panic("error open file")
