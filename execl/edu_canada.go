@@ -20,12 +20,12 @@ func main() {
 		panic("ping database failed!")
 	}
 
-	stmt, err := db.Prepare(`insert tbl_group (name, en_name, short_name, region) values (?,?,?,?)`)
+	stmt, err := db.Prepare(`insert tbl_group (en_name,logo, name,region) values (?,?,?,?)`)
 	if err != nil {
 		panic(err)
 	}
 
-	execlFileName := "./edu.xlsx"
+	execlFileName := "./edu_canada.xlsx"
 	xlFile, err := xlsx.OpenFile(execlFileName)
 	if err != nil {
 		panic("error open file")
@@ -34,12 +34,12 @@ func main() {
 	for _, sheet := range xlFile.Sheets {
 		for index, row := range sheet.Rows {
 			cells := row.Cells
+			en_name := strings.TrimSpace(fmt.Sprintf("%s", cells[0]))
+			logo := strings.TrimSpace(fmt.Sprintf("%s", cells[1]))
 			name := strings.TrimSpace(fmt.Sprintf("%s", cells[2]))
-			en_name := strings.TrimSpace(fmt.Sprintf("%s", cells[1]))
-			short_name := strings.TrimSpace(fmt.Sprintf("%s", cells[4]))
 			region := strings.TrimSpace(fmt.Sprintf("%s", cells[3]))
 
-			res, err := stmt.Exec(name, en_name, short_name, region)
+			res, err := stmt.Exec(name, logo, en_name, region)
 			if err != nil {
 				panic(err)
 			}
@@ -49,7 +49,7 @@ func main() {
 				panic(err)
 			}
 
-			fmt.Printf("index:%s, name:%s, en_name:%s, short_name:%s, region:%s\n", index, name, en_name, short_name, region)
+			fmt.Printf("index:%s, name:%s, logon:%s, en_name:%s, region:%s \n", index, name, logo, en_name, region)
 
 		}
 	}
